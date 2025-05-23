@@ -1,0 +1,32 @@
+{% set body_class = "font-inter h-100" %}
+{% set title = app_title %}
+
+{% extends "swl/base.j2" %}
+
+{% block head_extra %}
+    <!--<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback"
+      rel="stylesheet">-->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+          rel="stylesheet">
+    <link rel="icon" type="image/ico" href="/static/favicon.ico">
+
+    {% block styles %}
+        <link rel="stylesheet" href="/static/gmh-resolver.css?version={{ VERSION }}">
+        <script language="javascript" src="/static/gmh-resovler.js?version={{ VERSION }}"></script>
+    {% endblock styles %}
+{% endblock head_extra %}
+
+{% block body_extra %}
+    {% block scripts %}
+    {% endblock scripts %}
+    <script language="javascript"
+            id="swl-run"
+            type="module"
+            lang="nl_NL"
+            {#
+            lang="en_US"
+            lang="fr_FR"
+            lang="de_DE"
+            #}
+            src="/static/swl/swl-run.js?version={{ VERSION }}"></script>
+{% endblock body_extra %}

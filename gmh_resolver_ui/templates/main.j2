@@ -1,0 +1,30 @@
+{% extends "base.j2" %}
+
+{% block body %}
+    <div class="d-flex flex-column gap-3 p-3">
+        <h1>Resolve identifier</h1>
+        <p>Retrieve the actual location of an object by entering the persistent identifier in the form of a <code>URN:NBN:NL:UI-</code> or <code>URN:NBN:NL:HS-</code> in the search box below</p>
+
+        <form>
+            <div class="row mb-2">
+                <label for="input_identifier" class="col-sm-2 col-form-label">Identifier</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" name"identifier" id="input_identifier">
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <label for="input_show_locations" class="col-sm-2 form-check-label">Show locations</label>
+                <div class="col-sm-10">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="input_show_locations">
+                  </div>
+                </div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-sm-10 offset-sm-2"><button type="button" class="btn btn-primary">Send</button></div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

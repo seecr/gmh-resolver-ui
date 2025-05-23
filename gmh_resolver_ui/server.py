@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 async def setup_environment(config):
     actions = swl.Actions()
-    actions.register_module(swl_account, *VIEWS.modules)
+    actions.register_module(*VIEWS.modules)
 
     template_paths = [templates_path, swl.templates_dir]
 
@@ -34,7 +34,7 @@ async def setup_environment(config):
     )
     templates.env.globals["register"] = actions.register
     templates.env.globals["VERSION"] = VERSION
-    templates.env.globals["app_title"] = "Guard"
+    templates.env.globals["app_title"] = "NBN Resolver"
     templates.env.globals["SWL"] = swl.SWL(
         resources_path=global_config_path / "web-resources.json",
     )
@@ -74,10 +74,10 @@ async def create_app(config, environment=None, **_):
             Route(
                 "/action/{action:str}", endpoint=actions.handle, methods=["GET", "POST"]
             ),
-            Route("/", endpoint=aw(VIEWS.general.home)),
+            Route("/", endpoint=aw(VIEWS.general.main)),
         ],
         middleware=[
-            Middleware(SessionMiddleware, secret_key=config.session_secret_key),
+            # Middleware(SessionMiddleware, secret_key=config.session_secret_key),
         ],
         # lifespan=lifespan,
     )
