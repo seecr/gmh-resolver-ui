@@ -1,0 +1,9 @@
+.logo {
+    height: 40px;
+}
+
+.top-border {
+    border-top: 1px inset lightgrey;
+    padding-top: 0.25em;
+}
+

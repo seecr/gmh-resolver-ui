@@ -1,0 +1,16 @@
+
+{% set body_class = "d-flex flex-column h-100" %}
+
+{% extends "base.j2" %}
+
+{% block body %}
+
+<main class="p-2">{% block main %}{% endblock %}</main>
+
+<footer class="footer mt-auto fw-lighter px-2">
+    <div class="d-flex flex-row justify-content-between top-border">
+        <span>Version {{VERSION}}</span>
+        <img src="/static/images/kb-logo.png" alt="KB" class="logo">
+    </div>
+</footer>
+{% endblock %}
