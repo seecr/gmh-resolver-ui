@@ -1,0 +1,16 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Priority</th>
+            <th>Location</th>
+        </tr>
+    </thead>
+    {% for result in results %}
+        <tr>
+            <td>{{result['priority']}}</td>
+            <td><a href="{{result['location']}}" target="_blank">{{result['location']}}</a></td>
+        </tr>
+    {% endfor %}
+    <tbody>
+    </tbody>
+</table>

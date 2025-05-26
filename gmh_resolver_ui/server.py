@@ -1,9 +1,9 @@
-import contextlib
-
-import asyncio
 import jinja2
 import swl
 import logging
+
+from mysql.connector.pooling import MySQLConnectionPool
+
 from starlette.applications import Starlette
 from starlette.middleware import Middleware
 from starlette.middleware.authentication import AuthenticationMiddleware
@@ -32,6 +32,11 @@ async def setup_environment(config):
             autoescape=True,
         )
     )
+
+    pool = MySQLConnectionPool(
+        pool_reset_session=True, pool_size=5, **config.database_config
+    )
+
     templates.env.globals["register"] = actions.register
     templates.env.globals["VERSION"] = VERSION
     templates.env.globals["app_title"] = "NBN Resolver"
@@ -42,6 +47,7 @@ async def setup_environment(config):
     settings = {"development": config.development}
     actions.register_kwarg("settings", settings)
     actions.register_kwarg("templates", templates)
+    actions.register_kwarg("pool", pool)
 
     return actions, templates
 
