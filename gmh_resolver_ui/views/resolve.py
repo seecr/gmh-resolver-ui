@@ -31,14 +31,14 @@ async def resolve_identifier(request, templates, pool, **_):
         results = []
 
         unfragmented_identifier = identifier.split("#")[0]
-        conn = pool.get_connection()
-        with conn.cursor() as cursor:
-            cursor.execute(
-                "SELECT L.location_url, IL.isFailover FROM identifier I JOIN identifier_location IL ON I.identifier_id = IL.identifier_id JOIN location L ON L.location_id = IL.location_id WHERE I.identifier_value=%(identifier)s ORDER BY IL.isFailover, IL.last_modified DESC",
-                dict(identifier=unfragmented_identifier),
-            )
-            for hit in cursor:
-                results.append(dict(zip(["location", "priority"], hit)))
+        with pool.get_connection() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(
+                    "SELECT L.location_url, IL.isFailover FROM identifier I JOIN identifier_location IL ON I.identifier_id = IL.identifier_id JOIN location L ON L.location_id = IL.location_id WHERE I.identifier_value=%(identifier)s ORDER BY IL.isFailover, IL.last_modified DESC",
+                    dict(identifier=unfragmented_identifier),
+                )
+                for hit in cursor:
+                    results.append(dict(zip(["location", "priority"], hit)))
 
         if len(results) == 0:
             return response.hydrate(
