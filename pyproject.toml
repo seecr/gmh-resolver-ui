@@ -34,7 +34,6 @@ dependencies = [
     "pytest-asyncio >= 0.26.0, < 1",
     "pytest-xdist >= 3.6.1, < 4",
     "python-multipart >= 0.0.20, < 1",
-    "reportlab >= 4.4.0, < 5",
     "seecr-testtools >= 0.2.0, < 1",
     "starlette >= 0.46.2, < 1",
     "swl >= 2.5.1, < 3",
