@@ -31,7 +31,7 @@ dependencies = [
 dynamic = ["version"]
 
 [project.scripts]
-gmh-resolver-server = "gmh_resolver_ui.main:main_app"
+gmh-resolver-ui-server = "gmh_resolver_ui.main:main_app"
 
 [tool.setuptools]
 include-package-data = true
