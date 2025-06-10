@@ -60,5 +60,5 @@ VOLUME /data
 
 EXPOSE 8000
 
-ENTRYPOINT ["gmh-resolver-server", "--data-path", "/data", "--port", "8000"]
+ENTRYPOINT ["gmh-resolver-ui-server", "--data-path", "/data", "--port", "8000"]
 CMD []
