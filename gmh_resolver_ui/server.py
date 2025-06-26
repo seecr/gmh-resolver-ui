@@ -84,12 +84,6 @@ async def create_app(config, environment=None, **_):
         _,
     ) = environment or await setup_environment(config=config)
 
-    # @contextlib.asynccontextmanager
-    # async def lifespan(app):
-    #    await store.connect()
-    #    yield
-    #    await store.disconnect()
-
     aw = actions.wrap
 
     return Starlette(
@@ -107,9 +101,7 @@ async def create_app(config, environment=None, **_):
                 "/action/{action:str}", endpoint=actions.handle, methods=["GET", "POST"]
             ),
             Route("/", endpoint=aw(VIEWS.general.main)),
+            Route("/{urn:str}", endpoint=aw(VIEWS.resolve.resolve_by_path)),
         ],
-        middleware=[
-            # Middleware(SessionMiddleware, secret_key=config.session_secret_key),
-        ],
-        # lifespan=lifespan,
+        middleware=[],
     )
