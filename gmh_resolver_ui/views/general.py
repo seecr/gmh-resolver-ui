@@ -24,5 +24,21 @@
 #
 ## end license ##
 
+from .resolve import resolve_by_identifier
+
+
 async def main(request, templates, **kwargs):
-    return templates.TemplateResponse(request, "main.j2")
+    input_identifier = request.query_params.get("identifier") or ""
+    show_locations = request.query_params.get("redirectDisabled") == "on"
+    if input_identifier and not show_locations:
+        return await resolve_by_identifier(
+            input_identifier, request, templates=templates, **kwargs
+        )
+    return templates.TemplateResponse(
+        request,
+        "main.j2",
+        context=dict(
+            input_identifier=input_identifier,
+            show_locations=show_locations,
+        ),
+    )

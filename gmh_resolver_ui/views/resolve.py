@@ -25,6 +25,7 @@
 ## end license ##
 
 from starlette.responses import RedirectResponse
+from starlette.exceptions import HTTPException
 
 from swl.responses import SuccessResponse
 from swl.utils import render_template
@@ -38,14 +39,19 @@ NBN_PATTERN = re.compile(
 )
 
 
-async def resolve_by_path(request, **kwargs):
-    urn = request.path_params["urn"]
-
+async def resolve_by_identifier(urn, request, **kwargs):
     response = await resolve_identifier(
         urn, show_locations=False, request=request, **kwargs
     )
     url = response._content.get("redirect", "/")
+    if url == "/":
+        raise HTTPException(status_code=404, detail=f"No location found for {urn!r}")
     return RedirectResponse(url=url)
+
+
+async def resolve_by_path(request, **kwargs):
+    urn = request.path_params["urn"]
+    return await resolve_by_identifier(urn, request, **kwargs)
 
 
 async def resolve_by_form(request, **kwargs):
