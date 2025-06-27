@@ -54,10 +54,12 @@
         </form>
 
         <div id="placeholder-results"
-             {% if input_identifier and show_locations %}
-                 data-swl-placeholder="{{ register('resolve_by_form') }}"
-                 data-swl-argument-identifier="{{ input_identifier }}"
-                 data-swl-argument-show_locations="1"
+             {% if input_identifier %}
+                data-swl-placeholder="{{ register('resolve_by_form') }}"
+                data-swl-argument-identifier="{{ input_identifier }}"
+                {% if show_locations %}
+                   data-swl-argument-show_locations="1"
+                {% endif %}
              {% endif %}
         ></div>
     </div>
